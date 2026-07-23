@@ -1,0 +1,56 @@
+version: "3.9"
+services:
+  postgres:
+    image: library/postgres:15
+    container_name: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: "postgres"
+      POSTGRES_DB: postgres
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U $$POSTGRES_USER" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    volumes:
+      - db-data:/var/lib/postgresql/data
+      - ./postgres/:/docker-entrypoint-initdb.d/
+    ports:
+      - "5432:5432"
+
+  backend-todo-list:
+    image: romanowalex/backend-todo-list:v2.2
+    container_name: backend-todo-list
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      OAUTH2_SECURITY_ENABLED: false
+      TRACING_ENABLED: false
+    ports:
+      - "8080:8080"
+    healthcheck:
+      test: [ "CMD", "curl", "--silent", "--fail", "http://localhost:8080/backend/manage/health" ]
+      interval: 20s
+      timeout: 10s
+      retries: 10
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  frontend-todo-list:
+    build: .
+    image: romanowalex/frontend-todo-list:v2.0
+    container_name: frontend-todo-list
+    environment:
+      BACKEND_HOST: backend-todo-list
+    ports:
+      - "8880:80"
+    healthcheck:
+      test: "curl --fail http://localhost || exit 1"
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    depends_on:
+      - backend-todo-list
+
+volumes:
+  db-data:
