@@ -1,1 +1,1 @@
-add conflict title in new branch
+fix merge-conflict title in master branch
