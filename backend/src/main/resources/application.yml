@@ -6,7 +6,7 @@ spring:
     import: optional:git.properties
 
 server:
-  port: 8080
+  port: ha-ha,rabotat` ne bydet 
   forward-headers-strategy: framework
   servlet:
     context-path: /backend
