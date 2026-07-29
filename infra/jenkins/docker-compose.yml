@@ -1,13 +1,16 @@
 services:
   jenkins:
-    image: jenkins/jenkins:lts-jdk17
-    container_name: jenkins-server
+    build: .
     user: root
+    container_name: jenkins-server
     ports:
       - "8080:8080"
       - "50000:50000"
     environment:
       - JENKINS_OPTS=--httpPort=8080
+      # Включаем поддержку Docker в Testcontainers
+      - DOCKER_HOST=unix:///var/run/docker.sock
+      - TESTCONTAINERS_RYUK_DISABLED=true
     volumes:
       - jenkins-data:/var/jenkins_home
       - /var/run/docker.sock:/var/run/docker.sock

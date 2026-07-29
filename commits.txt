@@ -1,0 +1,90 @@
+commit a058ea7f319299033b5d5bedd3b18311145670be
+Merge: 6515fe0 5fbbb54
+Author: Danil Ushakov <dushakov2005@gmail.com>
+Date:   Tue Jul 28 13:43:11 2026 +0400
+
+    Merge pull request #2 from w1n73rr/feature/conflict-test
+    
+    Feature/conflict test
+
+commit 5fbbb54dba2c20524c755e1499ced19aa2d7a3d0
+Merge: a0bf1c2 6515fe0
+Author: Danil Ushakov <dushakov2005@gmail.com>
+Date:   Tue Jul 28 13:42:06 2026 +0400
+
+    fix: resolve merge conflict in README.md
+
+commit 6515fe00e07e3f7dc520fd2a73dc39da6e654dd7
+Author: Danil Ushakov <dushakov2005@gmail.com>
+Date:   Tue Jul 28 13:39:41 2026 +0400
+
+    docs: update title in master branch
+
+commit a0bf1c265970280d5d7fd9f8896817ff072bc8d9
+Author: Danil Ushakov <dushakov2005@gmail.com>
+Date:   Tue Jul 28 13:34:04 2026 +0400
+
+    docs: update title in feature branch
+
+commit e87b9902c241189f0552709482d8e164c697e9c1
+Merge: 9ebef32 ef14777
+Author: Danil Ushakov <dushakov2005@gmail.com>
+Date:   Tue Jul 28 09:42:47 2026 +0400
+
+    Merge pull request #1 from w1n73rr/feature/test-pr
+    
+    edit for PR
+
+commit ef14777b0414cf5437854b9ec34a767b86d55b16
+Author: Danil Ushakov <dushakov2005@gmail.com>
+Date:   Tue Jul 28 09:40:04 2026 +0400
+
+    edit for PR
+
+commit 9ebef32cdd90f50d7a0d40fc8bc5639d1f769e80
+Author: Danil Ushakov <dushakov2005@gmail.com>
+Date:   Tue Jul 28 08:56:25 2026 +0400
+
+    add necessary file, with cherry-pick
+
+commit e1ed5c8c61d53a45d9eb9fcef0ff2181fe570de7
+Author: Danil Ushakov <dushakov2005@gmail.com>
+Date:   Tue Jul 28 08:35:06 2026 +0400
+
+    undo the last commit because it breaks the build
+
+commit fbf03873c1041fa01b33ac7220446fcdc18b1c71
+Author: Danil Ushakov <dushakov2005@gmail.com>
+Date:   Tue Jul 28 08:34:40 2026 +0400
+
+    broken configuration file
+
+commit 3912784be86b60ae4d75762d889dca0d5fe6cc30
+Author: Danil Ushakov <dushakov2005@gmail.com>
+Date:   Tue Jul 28 08:30:40 2026 +0400
+
+    delete cleanup temp test files
+
+commit 0e6cb5285a9d8ba70f45757b0f84b40bd894059f
+Author: Danil Ushakov <dushakov2005@gmail.com>
+Date:   Tue Jul 28 08:22:06 2026 +0400
+
+    docs: add temp1
+
+commit a0d8967622888701d0fb7ae583fb03b880589d8b
+Author: Danil Ushakov <dushakov2005@gmail.com>
+Date:   Tue Jul 28 08:18:07 2026 +0400
+
+    add .gitignore
+
+commit 0a7154ecf173b59a1fa3c43bdb67cf90db869a2d
+Author: Danil Ushakov <dushakov2005@gmail.com>
+Date:   Tue Jul 28 07:26:22 2026 +0400
+
+    add Jenkins docker-compose up
+
+commit 0a31b358a79283703dd319ff3ff7555e372928a4
+Author: Danil Ushakov <dushakov2005@gmail.com>
+Date:   Thu Jul 23 11:24:06 2026 +0400
+
+    Add backend and frontend source code
