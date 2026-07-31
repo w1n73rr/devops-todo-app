@@ -1,7 +1,8 @@
 FROM jenkins/jenkins:lts-jdk17
 
-USER root
+USER root #переключаемся на root для установки системных пакетов
 
+# устанавливаем официальный Docker CLI и Docker Compose Plugin внутри контейнера Jenkins
 RUN apt-get update && \
     apt-get install -y ca-certificates curl gnupg && \
     install -m 0755 -d /etc/apt/keyrings && \
@@ -13,4 +14,5 @@ RUN apt-get update && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
+# возвращаемся под непривилегированного пользователя jenkins
 USER jenkins

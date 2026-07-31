@@ -1,11 +1,13 @@
 pipeline {
     agent any
 
+    // oпрос Gita каждые 5 минут на наличие новых коммитов
     triggers {
         pollSCM('H/5 * * * *')
     }
 
     environment {
+	// загрузка секретов из jenkins credentials manager
         TELEGRAM_BOT_TOKEN = credentials('telegram-bot-token')
         TELEGRAM_CHAT_ID   = credentials('telegram-chat-id')
         USER_NAME          = 'Danil Ushakov'
@@ -18,16 +20,18 @@ pipeline {
             agent {
                 docker {
                     image 'gradle:8.8-jdk17'
+			// монтируем сокет и кэш gradle для ускорения повторных сборок
                     args '-v /var/run/docker.sock:/var/run/docker.sock -v gradle-cache:/home/gradle/.gradle'
                 }
             }
             steps {
                 dir('backend') {
+		// сборка приложения без прогона тестов и проверок ktlint
                     sh 'gradle build -x test -x ktlintCheck -x ktlintMainSourceSetCheck -x ktlintGuiSourceSetCheck -x ktlintTestSourceSetCheck'
                 }
             }
             post {
-                always {
+                always { // парсинг результатов тестов (allowemptyresults защищает от статуса unstable, если тесты пропущены)
                     junit allowEmptyResults: true, testResults: 'backend/build/test-results/test/*.xml'
                 }
             }

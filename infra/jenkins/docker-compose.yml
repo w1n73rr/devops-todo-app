@@ -4,17 +4,18 @@ services:
     user: root
     container_name: jenkins-server
     ports:
-      - "8080:8080"
-      - "50000:50000"
+      - "8080:8080"  # интерфейс Jenkins, указание для докера
+      - "50000:50000"  # порт для подключения внешних билд-агентов
     environment:
-      - JENKINS_OPTS=--httpPort=8080
-      # Включаем поддержку Docker в Testcontainers
+      - JENKINS_OPTS=--httpPort=8080  # указали порт для jenkins
+      # Проброс сокет хоста для работы Docker-in-Docker / Testcontainers
       - DOCKER_HOST=unix:///var/run/docker.sock
       - TESTCONTAINERS_RYUK_DISABLED=true
     volumes:
       - jenkins-data:/var/jenkins_home
+      # монтируем сокет хоста, чтобы агент внутри jenkins мог запускать контейнеры
       - /var/run/docker.sock:/var/run/docker.sock
-    restart: unless-stopped
+    restart: unless-stopped  # перезапуск в случае падения или остановки(но не вручную)
 
 volumes:
   jenkins-data:
