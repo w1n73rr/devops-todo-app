@@ -146,6 +146,7 @@ publishing {
     publications {
         mavenJava(MavenPublication) {
             from components.java
+            groupId = 'com.yourcompany.todo-backend'
             artifactId = 'todo-backend'
             version = project.version
         }
