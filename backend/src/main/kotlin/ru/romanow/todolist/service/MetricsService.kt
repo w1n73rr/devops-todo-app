@@ -9,7 +9,7 @@ import ru.romanow.todolist.repository.ItemRepository
 
 @Service
 class MetricsService(
-    private val itemRepository: ItemRepository
+    private val itemRepository: ItemRepository,
 ) : MeterBinder {
     override fun bindTo(registry: MeterRegistry) {
         Gauge.builder("total.users") { usersCount() }

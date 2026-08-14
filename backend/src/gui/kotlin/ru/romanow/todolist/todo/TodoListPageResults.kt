@@ -7,7 +7,7 @@ import org.openqa.selenium.By.cssSelector
 import ru.romanow.todolist.utils.LOADER
 import ru.romanow.todolist.utils.TODO_ITEMS_ITEM
 import ru.romanow.todolist.utils.TODO_ITEMS_ROW
-import java.util.*
+import java.util.UUID
 
 class TodoListPageResults {
     fun loader() = `$`(byCssSelector("[data-id='$LOADER']"))

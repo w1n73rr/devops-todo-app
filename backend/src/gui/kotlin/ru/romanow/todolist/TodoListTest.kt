@@ -1,7 +1,9 @@
 package ru.romanow.todolist
 
 import com.codeborne.selenide.CollectionCondition.size
-import com.codeborne.selenide.Condition.*
+import com.codeborne.selenide.Condition.exist
+import com.codeborne.selenide.Condition.hidden
+import com.codeborne.selenide.Condition.text
 import com.codeborne.selenide.Selenide.open
 import com.codeborne.selenide.logevents.SelenideLogger
 import io.qameta.allure.Step
@@ -19,7 +21,6 @@ import ru.romanow.todolist.todo.TodoListPageResults
 
 @TestMethodOrder(OrderAnnotation::class)
 class TodoListTest {
-
     @BeforeEach
     fun prepare() {
         open(TODO_LIST_URL)

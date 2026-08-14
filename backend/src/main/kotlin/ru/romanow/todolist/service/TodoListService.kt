@@ -2,10 +2,18 @@ package ru.romanow.todolist.service
 
 import ru.romanow.todolist.model.CreateItemRequest
 import ru.romanow.todolist.model.ListItem
-import java.util.*
+import java.util.UUID
 
 interface TodoListService {
     fun findAll(userId: String): List<ListItem>
-    fun create(userId: String, request: CreateItemRequest)
-    fun delete(userId: String, uid: UUID)
+
+    fun create(
+        userId: String,
+        request: CreateItemRequest,
+    )
+
+    fun delete(
+        userId: String,
+        uid: UUID,
+    )
 }

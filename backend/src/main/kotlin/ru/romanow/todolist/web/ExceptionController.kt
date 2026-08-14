@@ -48,7 +48,7 @@ class ExceptionController {
             bindingResult.allErrors
                 .stream()
                 .map { it.defaultMessage }
-                .collect(joining(","))
+                .collect(joining(",")),
         )
     }
 

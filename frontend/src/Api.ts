@@ -2,7 +2,7 @@ import {Item} from "./pages/MainPage/types";
 import Cookies from "js-cookie";
 import Axios, {AxiosInstance} from "axios";
 
-const baseURL = process.env.REACT_APP_BACKEND_IP;
+const baseURL = '';
 const instance: AxiosInstance = Axios.create();
 
 instance.defaults.withCredentials = true

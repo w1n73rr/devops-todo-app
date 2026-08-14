@@ -19,11 +19,12 @@ class DatabaseTestConfiguration {
 
     @Bean(destroyMethod = "close")
     fun postgres(): PostgreSQLContainer<*> {
-        val postgres = CustomPostgresContainer(POSTGRES_IMAGE)
-            .withUsername(USERNAME)
-            .withPassword(PASSWORD)
-            .withDatabaseName(DATABASE_NAME)
-            .withLogConsumer(Slf4jLogConsumer(logger))
+        val postgres =
+            CustomPostgresContainer(POSTGRES_IMAGE)
+                .withUsername(USERNAME)
+                .withPassword(PASSWORD)
+                .withDatabaseName(DATABASE_NAME)
+                .withLogConsumer(Slf4jLogConsumer(logger))
 
         postgres.start()
         return postgres

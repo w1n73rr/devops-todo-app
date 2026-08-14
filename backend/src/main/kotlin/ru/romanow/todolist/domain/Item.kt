@@ -4,21 +4,18 @@ import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.Id
 import jakarta.persistence.Table
-import java.util.*
+import java.util.UUID
 
 @Entity
 @Table(name = "items")
 data class Item(
-
     @Id
     @Column(name = "id", nullable = false, unique = true)
     val id: UUID? = null,
-
     @Column(name = "text", nullable = false, length = 255)
     val text: String? = null,
-
     @Column(name = "user_id", nullable = false, length = 80)
-    val userId: String? = null
+    val userId: String? = null,
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

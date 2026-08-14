@@ -16,7 +16,7 @@ import org.springframework.security.core.userdetails.User
 import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.crypto.password.PasswordEncoder
-import org.springframework.security.oauth2.server.resource.authentication.JwtIssuerAuthenticationManagerResolver.*
+import org.springframework.security.oauth2.server.resource.authentication.JwtIssuerAuthenticationManagerResolver.fromTrustedIssuers
 import org.springframework.security.provisioning.InMemoryUserDetailsManager
 import org.springframework.security.web.SecurityFilterChain
 import org.springframework.security.web.authentication.HttpStatusEntryPoint
@@ -29,7 +29,6 @@ import ru.romanow.todolist.config.properties.OAuthLoginProperties
 class SecurityConfiguration(
     private val actuatorSecurityProperties: ActuatorSecurityProperties,
 ) {
-
     @Bean
     @Order(FIRST)
     @ConditionalOnProperty("oauth2.security.enabled", havingValue = "true", matchIfMissing = true)
@@ -75,7 +74,8 @@ class SecurityConfiguration(
     @Order(THIRD)
     @ConditionalOnProperty("oauth2.security.enabled", havingValue = "true", matchIfMissing = true)
     fun protectedResourceSecurityFilterChain(
-        http: HttpSecurity, properties: OAuth2ClientProperties
+        http: HttpSecurity,
+        properties: OAuth2ClientProperties,
     ): SecurityFilterChain {
         val sources = mutableListOf<String>()
         for (p in PROVIDERS) {
@@ -108,11 +108,12 @@ class SecurityConfiguration(
 
     @Bean
     fun users(passwordEncoder: PasswordEncoder): UserDetailsService {
-        val user = User.builder()
-            .username(actuatorSecurityProperties.user)
-            .password(passwordEncoder.encode(actuatorSecurityProperties.password))
-            .roles(actuatorSecurityProperties.role)
-            .build()
+        val user =
+            User.builder()
+                .username(actuatorSecurityProperties.user)
+                .password(passwordEncoder.encode(actuatorSecurityProperties.password))
+                .roles(actuatorSecurityProperties.role)
+                .build()
         return InMemoryUserDetailsManager(user)
     }
 

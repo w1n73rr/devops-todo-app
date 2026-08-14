@@ -6,5 +6,5 @@ import org.springframework.boot.context.properties.ConfigurationProperties
 data class ActuatorSecurityProperties(
     val user: String,
     val password: String,
-    val role: String
+    val role: String,
 )

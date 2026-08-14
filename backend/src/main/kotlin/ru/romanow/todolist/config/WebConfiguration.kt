@@ -16,7 +16,7 @@ class WebConfiguration : WebMvcConfigurer {
             .allowedOriginPatterns(
                 "http://localhost:[*]",
                 "http://todo-list.local",
-                "https://*.romanow-alex.ru"
+                "https://*.romanow-alex.ru",
             )
             .allowedMethods(GET.name(), POST.name(), OPTIONS.name(), DELETE.name())
     }

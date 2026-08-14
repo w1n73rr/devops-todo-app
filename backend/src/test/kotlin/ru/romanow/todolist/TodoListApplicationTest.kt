@@ -10,7 +10,6 @@ import ru.romanow.todolist.config.DatabaseTestConfiguration
 @SpringBootTest
 @Import(DatabaseTestConfiguration::class)
 internal class TodoListApplicationTest {
-
     @Test
     fun testApp() {
     }

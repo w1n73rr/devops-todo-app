@@ -11,7 +11,7 @@ import ru.romanow.todolist.utils.LOADER
 import ru.romanow.todolist.utils.NEW_ITEM_BUTTON
 import ru.romanow.todolist.utils.NEW_ITEM_INPUT
 import ru.romanow.todolist.utils.TODO_ITEMS_ITEM
-import java.util.*
+import java.util.UUID
 
 class TodoListPage {
     fun addNewItem(): Item {
@@ -21,8 +21,9 @@ class TodoListPage {
 
         `$`(byCssSelector("[data-id='$LOADER']")).shouldBe(hidden)
 
-        val uid = `$`(byText(text)).attr("data-id")
-            ?.substring("$TODO_ITEMS_ITEM-".length)
+        val uid =
+            `$`(byText(text)).attr("data-id")
+                ?.substring("$TODO_ITEMS_ITEM-".length)
 
         return Item(UUID.fromString(uid), text)
     }

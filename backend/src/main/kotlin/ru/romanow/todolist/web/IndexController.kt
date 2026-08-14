@@ -14,7 +14,6 @@ class IndexController(
     @Value("\${spring.application.name}")
     private val applicationName: String,
 ) {
-
     @GetMapping(produces = [MediaType.TEXT_PLAIN_VALUE])
     fun index() = "Application $applicationName"
 }

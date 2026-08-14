@@ -11,7 +11,6 @@ import org.springframework.http.server.observation.ServerRequestObservationConte
 
 @Configuration
 class ObservabilityConfiguration {
-
     @Bean
     fun timedAspect(registry: MeterRegistry): TimedAspect {
         return TimedAspect(registry)
@@ -19,16 +18,16 @@ class ObservabilityConfiguration {
 
     @Bean
     @ConditionalOnProperty("management.tracing.enabled", havingValue = "true")
-    fun noActuatorObservations() = ObservationPredicate { name: String, context: Observation.Context? ->
-        if (name == "http.server.requests" && context is ServerRequestObservationContext) {
-            !context.carrier.servletPath.startsWith("/backend/manage")
-        } else {
-            true
+    fun noActuatorObservations() =
+        ObservationPredicate { name: String, context: Observation.Context? ->
+            if (name == "http.server.requests" && context is ServerRequestObservationContext) {
+                !context.carrier.servletPath.startsWith("/backend/manage")
+            } else {
+                true
+            }
         }
-    }
 
     @Bean
     @ConditionalOnProperty("management.tracing.enabled", havingValue = "true")
-    fun noSecurityObservations() =
-        ObservationPredicate { name: String, _: Observation.Context? -> !name.startsWith("spring.security.") }
+    fun noSecurityObservations() = ObservationPredicate { name: String, _: Observation.Context? -> !name.startsWith("spring.security.") }
 }

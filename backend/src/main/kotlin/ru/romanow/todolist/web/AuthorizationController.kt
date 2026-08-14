@@ -19,14 +19,14 @@ import ru.romanow.todolist.config.properties.OAuthLoginProperties
 class AuthorizationController(
     private val oauthLoginProperties: OAuthLoginProperties,
 ) {
-
     @GetMapping(produces = [MediaType.APPLICATION_JSON_VALUE])
     fun items(token: OAuth2AuthenticationToken): ResponseEntity<Void> {
-        val tokenCookie = from("access_token", (token.principal as DefaultOidcUser).idToken.tokenValue)
-            .path("/")
-            .httpOnly(false)
-            .maxAge(36000)
-            .build()
+        val tokenCookie =
+            from("access_token", (token.principal as DefaultOidcUser).idToken.tokenValue)
+                .path("/")
+                .httpOnly(false)
+                .maxAge(36000)
+                .build()
 
         return ResponseEntity.status(HttpStatus.FOUND)
             .header(HttpHeaders.LOCATION, oauthLoginProperties.redirectUri)

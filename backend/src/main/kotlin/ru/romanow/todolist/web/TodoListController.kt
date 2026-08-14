@@ -15,19 +15,25 @@ import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.http.ResponseEntity.created
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken
-import org.springframework.web.bind.annotation.*
+import org.springframework.web.bind.annotation.DeleteMapping
+import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PathVariable
+import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.RequestBody
+import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.ResponseStatus
+import org.springframework.web.bind.annotation.RestController
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder.fromCurrentRequest
 import ru.romanow.todolist.model.CreateItemRequest
 import ru.romanow.todolist.model.ErrorResponse
 import ru.romanow.todolist.model.ListItem
 import ru.romanow.todolist.model.ValidationErrorResponse
 import ru.romanow.todolist.service.TodoListService
-import java.util.*
-
+import java.util.UUID
 
 @Tag(
     name = "TODO list Controller",
-    description = "Операции создания, получения списка и удаления над записями TODO-листа"
+    description = "Операции создания, получения списка и удаления над записями TODO-листа",
 )
 @SecurityScheme(type = SecuritySchemeType.OAUTH2)
 @RestController
@@ -44,11 +50,11 @@ class TodoListController(
                 content = [
                     Content(
                         mediaType = MediaType.APPLICATION_JSON_VALUE,
-                        array = ArraySchema(schema = Schema(implementation = ListItem::class))
-                    )
-                ]
-            )
-        ]
+                        array = ArraySchema(schema = Schema(implementation = ListItem::class)),
+                    ),
+                ],
+            ),
+        ],
     )
     @GetMapping(produces = [MediaType.APPLICATION_JSON_VALUE])
     fun items(token: JwtAuthenticationToken?): List<ListItem> {
@@ -63,8 +69,8 @@ class TodoListController(
                 responseCode = "201",
                 description = "Новая запись успешно добавлена",
                 headers = [
-                    Header(name = "Location", description = "Ссылка на список всех записей")
-                ]
+                    Header(name = "Location", description = "Ссылка на список всех записей"),
+                ],
             ),
             ApiResponse(
                 responseCode = "400",
@@ -72,9 +78,9 @@ class TodoListController(
                 content = [
                     Content(
                         mediaType = MediaType.APPLICATION_JSON_VALUE,
-                        schema = Schema(implementation = ValidationErrorResponse::class)
-                    )
-                ]
+                        schema = Schema(implementation = ValidationErrorResponse::class),
+                    ),
+                ],
             ),
             ApiResponse(
                 responseCode = "409",
@@ -82,14 +88,17 @@ class TodoListController(
                 content = [
                     Content(
                         mediaType = MediaType.APPLICATION_JSON_VALUE,
-                        schema = Schema(implementation = ErrorResponse::class)
-                    )
-                ]
-            )
-        ]
+                        schema = Schema(implementation = ErrorResponse::class),
+                    ),
+                ],
+            ),
+        ],
     )
     @PostMapping(consumes = [MediaType.APPLICATION_JSON_VALUE])
-    fun create(token: JwtAuthenticationToken?, @Valid @RequestBody request: CreateItemRequest): ResponseEntity<Void> {
+    fun create(
+        token: JwtAuthenticationToken?,
+        @Valid @RequestBody request: CreateItemRequest,
+    ): ResponseEntity<Void> {
         val userId = getCurrentUser(token)
         todoListService.create(userId, request)
         return created(fromCurrentRequest().build().toUri()).build()
@@ -97,17 +106,19 @@ class TodoListController(
 
     @Operation(
         summary = "Удаление записи",
-        responses = [ApiResponse(responseCode = "204", description = "Запись успешно удалена")]
+        responses = [ApiResponse(responseCode = "204", description = "Запись успешно удалена")],
     )
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{uid}")
-    fun delete(token: JwtAuthenticationToken?, @PathVariable uid: UUID) {
+    fun delete(
+        token: JwtAuthenticationToken?,
+        @PathVariable uid: UUID,
+    ) {
         val userId = getCurrentUser(token)
         todoListService.delete(userId, uid)
     }
 
-    private fun getCurrentUser(token: JwtAuthenticationToken?): String =
-        token?.tokenAttributes?.get("email")?.toString() ?: DEFAULT_USER
+    private fun getCurrentUser(token: JwtAuthenticationToken?): String = token?.tokenAttributes?.get("email")?.toString() ?: DEFAULT_USER
 
     companion object {
         private const val DEFAULT_USER = "test@mail.ru"
