@@ -4,3 +4,4 @@ tree.txt
 node_modules/
 frontend/build/
 backend/build/
+frontend/node_modules/
