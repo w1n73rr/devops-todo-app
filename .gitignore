@@ -2,3 +2,5 @@ tree.txt
 .idea/
 .vscode/
 node_modules/
+frontend/build/
+backend/build/
