@@ -155,6 +155,7 @@ publishing {
         maven {
             name = 'nexus'
             url = "http://localhost:8081/repository/todo-backend/"
+            allowInsecureProtocol = true
             credentials {
                 username = project.findProperty('nexusUser') ?: System.getenv('NEXUS_REPO_USER')
                 password = project.findProperty('nexusPass') ?: System.getenv('NEXUS_REPO_PASS')
